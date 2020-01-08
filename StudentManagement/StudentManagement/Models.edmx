@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="MyDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CLASS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CLASSNAME" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="STUDENT">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FULLNAME" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="BIRTHDAY" Type="date" />
+          <Property Name="GENDER" Type="bit" Nullable="false" />
+          <Property Name="CLASS_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__STUDENT__CLASS_I__1273C1CD">
+          <End Role="CLASS" Type="Self.CLASS" Multiplicity="1" />
+          <End Role="STUDENT" Type="Self.STUDENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CLASS">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="STUDENT">
+              <PropertyRef Name="CLASS_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MyDatabaseModelStoreContainer">
+          <EntitySet Name="CLASS" EntityType="Self.CLASS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="STUDENT" EntityType="Self.STUDENT" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__STUDENT__CLASS_I__1273C1CD" Association="Self.FK__STUDENT__CLASS_I__1273C1CD">
+            <End Role="CLASS" EntitySet="CLASS" />
+            <End Role="STUDENT" EntitySet="STUDENT" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MyDatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="MyDatabaseEntities" annotation:LazyLoadingEnabled="true" >
+          <EntitySet Name="CLASSes" EntityType="MyDatabaseModel.CLASS" />
+          <EntitySet Name="STUDENTs" EntityType="MyDatabaseModel.STUDENT" />
+          <AssociationSet Name="FK__STUDENT__CLASS_I__1273C1CD" Association="MyDatabaseModel.FK__STUDENT__CLASS_I__1273C1CD">
+            <End Role="CLASS" EntitySet="CLASSes" />
+            <End Role="STUDENT" EntitySet="STUDENTs" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="CLASS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CLASSNAME" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="STUDENTs" Relationship="MyDatabaseModel.FK__STUDENT__CLASS_I__1273C1CD" FromRole="CLASS" ToRole="STUDENT" />
+        </EntityType>
+        <EntityType Name="STUDENT">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FULLNAME" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BIRTHDAY" Type="DateTime" Precision="0" />
+          <Property Name="GENDER" Type="Boolean" Nullable="false" />
+          <Property Name="CLASS_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CLASS" Relationship="MyDatabaseModel.FK__STUDENT__CLASS_I__1273C1CD" FromRole="STUDENT" ToRole="CLASS" />
+        </EntityType>
+        <Association Name="FK__STUDENT__CLASS_I__1273C1CD">
+          <End Type="MyDatabaseModel.CLASS" Role="CLASS" Multiplicity="1" />
+          <End Type="MyDatabaseModel.STUDENT" Role="STUDENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CLASS">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="STUDENT">
+              <PropertyRef Name="CLASS_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MyDatabaseModelStoreContainer" CdmEntityContainer="MyDatabaseEntities" >
+          <EntitySetMapping Name="CLASSes">
+            <EntityTypeMapping TypeName="MyDatabaseModel.CLASS">
+              <MappingFragment StoreEntitySet="CLASS">
+                <ScalarProperty Name="CLASSNAME" ColumnName="CLASSNAME" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="STUDENTs">
+            <EntityTypeMapping TypeName="MyDatabaseModel.STUDENT">
+              <MappingFragment StoreEntitySet="STUDENT">
+                <ScalarProperty Name="CLASS_ID" ColumnName="CLASS_ID" />
+                <ScalarProperty Name="GENDER" ColumnName="GENDER" />
+                <ScalarProperty Name="BIRTHDAY" ColumnName="BIRTHDAY" />
+                <ScalarProperty Name="FULLNAME" ColumnName="FULLNAME" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
